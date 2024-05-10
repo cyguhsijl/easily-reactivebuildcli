@@ -1,12 +1,26 @@
-function rotate(matrix) {
-  const n = matrix.length;
-  for (let i = 0; i < Math.floor(n / 2); i++) {
-    for (let j = i; j < n - i - 1; j++) {
-      const temp = matrix[i][j];
-      matrix[i][j] = matrix[n - j - 1][i];
-      matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
-      matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
-      matrix[j][n - i - 1] = temp;
+function letterCombinations(digits) {
+  if (digits.length === 0) return [];
+  const map = {
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz",
+  };
+  const result = [];
+  backtrack("", 0);
+  return result;
+  function backtrack(current, index) {
+    if (current.length === digits.length) {
+      result.push(current);
+      return;
+    }
+    const letters = map[digits[index]];
+    for (const letter of letters) {
+      backtrack(current + letter, index + 1);
     }
   }
 }
