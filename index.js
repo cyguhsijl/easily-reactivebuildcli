@@ -1,15 +1,20 @@
-function isValidBST(root) {
-  const stack = [];
-  let inorder = -Infinity;
-  while (stack.length || root) {
-    while (root) {
-      stack.push(root);
-      root = root.left;
+function findCircleNum(M) {
+  if (!M || M.length === 0) return 0;
+  const visited = new Array(M.length).fill(false);
+  let count = 0;
+  for (let i = 0; i < M.length; i++) {
+    if (!visited[i]) {
+      dfs(M, i, visited);
+      count++;
     }
-    root = stack.pop();
-    if (root.val <= inorder) return false;
-    inorder = root.val;
-    root = root.right;
   }
-  return true;
+  return count;
+}
+function dfs(M, i, visited) {
+  visited[i] = true;
+  for (let j = 0; j < M.length; j++) {
+    if (M[i][j] === 1 && !visited[j]) {
+      dfs(M, j, visited);
+    }
+  }
 }
